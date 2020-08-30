@@ -8,7 +8,14 @@ using DarkRift.Server;
 
 namespace AgarPlugin
 {
-    public class Class1
+    public class AgarPlayerManager : Plugin
     {
+        public override bool ThreadSafe => false;
+
+        public override Version Version => new Version(0, 0, 1);
+
+        public AgarPlayerManager(PluginLoadData pluginLoadData) : base(pluginLoadData)
+        {
+        }
     }
 }
