@@ -16,7 +16,6 @@ public class MouseController : MonoBehaviour
     {
         Vector3 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePoint.z = 0;
-        Debug.Log(Input.mousePosition);
 
         agarObject.SetMovePosition(mousePoint);
 	}

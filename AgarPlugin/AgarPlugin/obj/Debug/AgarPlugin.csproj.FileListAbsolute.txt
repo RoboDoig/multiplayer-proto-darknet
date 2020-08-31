@@ -1,7 +1,5 @@
 C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\bin\Debug\AgarPlugin.dll
 C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\bin\Debug\AgarPlugin.pdb
-C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\bin\Debug\DarkRift.dll
-C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\bin\Debug\DarkRift.Server.dll
 C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\bin\Debug\DarkRift.pdb
 C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\bin\Debug\DarkRift.xml
 C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\bin\Debug\DarkRift.Server.pdb
