@@ -21,6 +21,10 @@ public class PlayerSpawner : MonoBehaviour
     [Tooltip("The network controllable player prefab.")]
     GameObject networkPrefab;
 
+    [SerializeField]
+    [Tooltip("The network player manager.")]
+    NetworkPlayerManager networkPlayerManager;
+
     void Awake()
     {
         if (client == null)
@@ -45,7 +49,6 @@ public class PlayerSpawner : MonoBehaviour
     }
 
     void SpawnPlayer(object sender, MessageReceivedEventArgs e) {
-        Debug.Log("Spawn Player");
         using (Message message = e.GetMessage())
         using (DarkRiftReader reader = message.GetReader())
         {
@@ -70,7 +73,6 @@ public class PlayerSpawner : MonoBehaviour
                     );
         
                     GameObject obj;
-                    Debug.Log(id);
                     if (id == client.ID)
                     {
                             obj = Instantiate(controllablePrefab, position, Quaternion.identity) as GameObject;
@@ -87,6 +89,8 @@ public class PlayerSpawner : MonoBehaviour
 
                     agarObj.SetRadius(radius);
                     agarObj.SetColor(color);
+
+                    networkPlayerManager.Add(id, agarObj);
                 }
             }
         }

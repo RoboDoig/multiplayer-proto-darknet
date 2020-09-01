@@ -26,18 +26,16 @@ public class Player : MonoBehaviour
     {
         if (Vector3.Distance(lastPosition, transform.position) > moveDistance)
         {
-            /* Send position to server here */
+            using (DarkRiftWriter writer = DarkRiftWriter.Create())
+            {
+                writer.Write(transform.position.x);
+                writer.Write(transform.position.y);
+
+                using (Message message = Message.Create(Tags.MovePlayerTag, writer))
+                    Client.SendMessage(message, SendMode.Unreliable);
+            }    
 
             lastPosition = transform.position;
-        }
-
-        using (DarkRiftWriter writer = DarkRiftWriter.Create())
-        {
-            writer.Write(transform.position.x);
-            writer.Write(transform.position.y);
-
-            using (Message message = Message.Create(Tags.MovePlayerTag, writer))
-                Client.SendMessage(message, SendMode.Unreliable);
-        }       
+        }   
     }
 }

@@ -9,3 +9,8 @@ C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\ob
 C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\obj\Debug\AgarPlugin.csproj.CopyComplete
 C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\obj\Debug\AgarPlugin.dll
 C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\obj\Debug\AgarPlugin.pdb
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\bin\Debug\DarkRift.Client.dll
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\bin\Debug\DarkRift.dll
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\bin\Debug\DarkRift.Server.dll
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\bin\Debug\DarkRift.Client.pdb
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\AgarPlugin\AgarPlugin\bin\Debug\DarkRift.Client.xml
