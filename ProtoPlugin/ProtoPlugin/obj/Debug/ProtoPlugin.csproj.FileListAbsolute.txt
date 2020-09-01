@@ -1,0 +1,13 @@
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\ProtoPlugin\ProtoPlugin\bin\Debug\ProtoPlugin.dll
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\ProtoPlugin\ProtoPlugin\bin\Debug\ProtoPlugin.pdb
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\ProtoPlugin\ProtoPlugin\bin\Debug\DarkRift.dll
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\ProtoPlugin\ProtoPlugin\bin\Debug\DarkRift.Server.dll
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\ProtoPlugin\ProtoPlugin\bin\Debug\DarkRift.pdb
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\ProtoPlugin\ProtoPlugin\bin\Debug\DarkRift.xml
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\ProtoPlugin\ProtoPlugin\bin\Debug\DarkRift.Server.pdb
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\ProtoPlugin\ProtoPlugin\bin\Debug\DarkRift.Server.xml
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\ProtoPlugin\ProtoPlugin\obj\Debug\ProtoPlugin.csprojAssemblyReference.cache
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\ProtoPlugin\ProtoPlugin\obj\Debug\ProtoPlugin.csproj.CoreCompileInputs.cache
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\ProtoPlugin\ProtoPlugin\obj\Debug\ProtoPlugin.csproj.CopyComplete
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\ProtoPlugin\ProtoPlugin\obj\Debug\ProtoPlugin.dll
+C:\Users\erski\UnityProjects\multiplayer-proto-darkrift\ProtoPlugin\ProtoPlugin\obj\Debug\ProtoPlugin.pdb
