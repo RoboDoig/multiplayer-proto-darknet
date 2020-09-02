@@ -53,7 +53,7 @@ public class SpawnManager : MonoBehaviour
                 // if the message refers to us as a local player, instantiant controllable local player
                 if (id == client.ID) {
                     obj = Instantiate(localPlayerPrefab, position, Quaternion.identity) as GameObject;
-                    obj.GetComponent<NetworkPlayer>().Client = client;
+                    obj.GetComponent<Player>().Client = client;
                 // else instantiant non-controllable network player
                 } else {
                     obj = Instantiate(networkPlayerPrefab, position, Quaternion.identity) as GameObject;

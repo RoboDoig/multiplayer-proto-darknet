@@ -78,6 +78,9 @@ namespace ProtoPlugin
                 using (Message playerMessage = Message.Create(Tags.SpawnPlayerTag, playerWriter))
                     e.Client.SendMessage(playerMessage, SendMode.Reliable);
             }
+
+            // The client should also check movement when it receives a message
+            e.Client.MessageReceived += MovementMessageReceived;
         }
 
         void ClientDisconnected(object sender, ClientDisconnectedEventArgs e)
@@ -95,5 +98,37 @@ namespace ProtoPlugin
                 }
             }
         }
+
+        void MovementMessageReceived(object sender, MessageReceivedEventArgs e)
+        {
+            using (Message message = e.GetMessage() as Message)
+            {
+                if (message.Tag == Tags.MovePlayerTag)
+                {
+                    using(DarkRiftReader reader = message.GetReader())
+                    {
+                        // what updated position did we receive?
+                        float newX = reader.ReadSingle();
+                        float newY = reader.ReadSingle();
+                        Player player = players[e.Client];
+                        player.X = newX;
+                        player.Y = newY;
+
+                        // send this player's updated position back to all clients except the client that sent the message
+                        using (DarkRiftWriter writer = DarkRiftWriter.Create())
+                        {
+                            writer.Write(player.ID);
+                            writer.Write(player.X);
+                            writer.Write(player.Y);
+                            message.Serialize(writer);
+                        }
+
+                        foreach (IClient c in ClientManager.GetAllClients().Where(x => x != e.Client))
+                            c.SendMessage(message, e.SendMode);
+                    }
+                }
+            }
+        }
+
     }
 }
