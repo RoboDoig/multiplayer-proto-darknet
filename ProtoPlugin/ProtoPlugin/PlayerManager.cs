@@ -82,7 +82,18 @@ namespace ProtoPlugin
 
         void ClientDisconnected(object sender, ClientDisconnectedEventArgs e)
         {
+            players.Remove(e.Client);
 
+            using (DarkRiftWriter writer = DarkRiftWriter.Create())
+            {
+                writer.Write(e.Client.ID);
+
+                using (Message message = Message.Create(Tags.DespawnPlayerTag, writer))
+                {
+                    foreach (IClient client in ClientManager.GetAllClients())
+                        client.SendMessage(message, SendMode.Reliable);
+                }
+            }
         }
     }
 }

@@ -10,5 +10,7 @@ namespace ProtoPlugin
     {
         public static readonly ushort TestMessageTag = 0;
         public static readonly ushort SpawnPlayerTag = 1;
+        public static readonly ushort DespawnPlayerTag = 2;
+        public static readonly ushort MovePlayerTage = 3;
     }
 }

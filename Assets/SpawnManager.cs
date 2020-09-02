@@ -11,6 +11,9 @@ public class SpawnManager : MonoBehaviour
     UnityClient client;
 
     [SerializeField]
+    NetworkPlayerManager networkPlayerManager;
+
+    [SerializeField]
     GameObject playerPrefab;
 
     void Awake() {
@@ -25,14 +28,14 @@ public class SpawnManager : MonoBehaviour
     void MessageReceived(object sender, MessageReceivedEventArgs e) {
         using (Message message = e.GetMessage() as Message) {
             if (message.Tag == Tags.TestMessageTag) {
-
                 using (DarkRiftReader reader = message.GetReader()) {
                 ushort id = reader.ReadUInt16();
                 Debug.Log(id);
-
         }
             } else if (message.Tag == Tags.SpawnPlayerTag) {
                 SpawnPlayer(sender, e);
+            } else if (message.Tag == Tags.DespawnPlayerTag) {
+                DespawnPlayer(sender, e);
             }
         }
     }
@@ -46,7 +49,16 @@ public class SpawnManager : MonoBehaviour
 
                 GameObject obj;
                 obj = Instantiate(playerPrefab, position, Quaternion.identity) as GameObject;
+
+                networkPlayerManager.Add(id, obj.GetComponent<NetworkPlayer>());
             }
+        }
+    }
+
+    void DespawnPlayer(object sender, MessageReceivedEventArgs e) {
+        using (Message message  = e.GetMessage())
+        using (DarkRiftReader reader = message.GetReader()) {
+            networkPlayerManager.DestroyPlayer(reader.ReadUInt16());
         }
     }
 }
