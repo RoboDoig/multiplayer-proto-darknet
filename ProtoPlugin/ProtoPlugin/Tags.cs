@@ -9,5 +9,6 @@ namespace ProtoPlugin
     static class Tags
     {
         public static readonly ushort TestMessageTag = 0;
+        public static readonly ushort SpawnPlayerTag = 1;
     }
 }

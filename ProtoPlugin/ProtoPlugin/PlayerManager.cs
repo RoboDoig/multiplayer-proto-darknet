@@ -14,6 +14,11 @@ namespace ProtoPlugin
 
         public override Version Version => new Version(0, 0, 1);
 
+        // Hard coded, needs to reflect game world map somehow
+        const float MAP_WIDTH = 20;
+
+        Dictionary<IClient, Player> players = new Dictionary<IClient, Player>();
+
         public PlayerManager(PluginLoadData pluginLoadData) : base(pluginLoadData)
         {
             ClientManager.ClientConnected += ClientConnected;
@@ -33,6 +38,45 @@ namespace ProtoPlugin
                         client.SendMessage(newMessage, SendMode.Reliable);
                 }
 
+            }
+
+            // When client connects, generate new player data
+            Random r = new Random();
+            Player newPlayer = new Player(
+                e.Client.ID,
+                (float)r.NextDouble() * MAP_WIDTH - MAP_WIDTH / 2,
+                (float)r.NextDouble() * MAP_WIDTH - MAP_WIDTH / 2
+            );
+
+            // Write player data and tell other connected clients about this client player
+            using (DarkRiftWriter newPlayerWriter = DarkRiftWriter.Create())
+            {
+                newPlayerWriter.Write(newPlayer.ID);
+                newPlayerWriter.Write(newPlayer.X);
+                newPlayerWriter.Write(newPlayer.Y);
+
+                using (Message newPlayerMessage = Message.Create(Tags.SpawnPlayerTag, newPlayerWriter))
+                {
+                    foreach (IClient client in ClientManager.GetAllClients().Where(x => x != e.Client))
+                        client.SendMessage(newPlayerMessage, SendMode.Reliable);
+                }
+            }
+
+            // Add new player to class players reference
+            players.Add(e.Client, newPlayer);
+
+            // Tell the client player about all connected players
+            using (DarkRiftWriter playerWriter = DarkRiftWriter.Create())
+            {
+                foreach(Player player in players.Values)
+                {
+                    playerWriter.Write(player.ID);
+                    playerWriter.Write(player.X);
+                    playerWriter.Write(player.Y);
+                }
+
+                using (Message playerMessage = Message.Create(Tags.SpawnPlayerTag, playerWriter))
+                    e.Client.SendMessage(playerMessage, SendMode.Reliable);
             }
         }
 

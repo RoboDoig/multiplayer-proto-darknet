@@ -10,6 +10,9 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     UnityClient client;
 
+    [SerializeField]
+    GameObject playerPrefab;
+
     void Awake() {
         if (client == null) {
             Debug.Log("Client unassigned in SpawnManager");
@@ -20,13 +23,30 @@ public class SpawnManager : MonoBehaviour
     }
 
     void MessageReceived(object sender, MessageReceivedEventArgs e) {
+        using (Message message = e.GetMessage() as Message) {
+            if (message.Tag == Tags.TestMessageTag) {
+
+                using (DarkRiftReader reader = message.GetReader()) {
+                ushort id = reader.ReadUInt16();
+                Debug.Log(id);
+
+        }
+            } else if (message.Tag == Tags.SpawnPlayerTag) {
+                SpawnPlayer(sender, e);
+            }
+        }
+    }
+
+    void SpawnPlayer(object sender, MessageReceivedEventArgs e) {
         using (Message message = e.GetMessage())
         using (DarkRiftReader reader = message.GetReader()) {
+            while (reader.Position < reader.Length) {
+                ushort id = reader.ReadUInt16();
+                Vector3 position = new Vector3(reader.ReadSingle(), 1f, reader.ReadSingle());
 
-            ushort id = reader.ReadUInt16();
-
-            Debug.Log(id);
-
+                GameObject obj;
+                obj = Instantiate(playerPrefab, position, Quaternion.identity) as GameObject;
+            }
         }
     }
 }
