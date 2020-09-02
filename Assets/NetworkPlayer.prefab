@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8837042551830750970}
   - component: {fileID: 8837042551830750973}
   - component: {fileID: 8837042551830750972}
-  - component: {fileID: 5290264881524270106}
+  - component: {fileID: 1953573151100625811}
   m_Layer: 0
   m_Name: NetworkPlayer
   m_TagString: Untagged
@@ -96,7 +96,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5290264881524270106
+--- !u!114 &1953573151100625811
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,3 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774a4d7977ab9bd4691d88c6d880ee8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveDistance: 0.05
+  Client: {fileID: 0}
