@@ -123,7 +123,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: b5b4bf1bc2c706b40a1e46a67f39a7de, type: 2}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +383,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   client: {fileID: 1216754985}
   networkPlayerManager: {fileID: 1216754987}
-  playerPrefab: {fileID: 8837042551830750975, guid: e9f5d037a51e4fa4093b0db7a315d6c8,
+  localPlayerPrefab: {fileID: 8837042551830750975, guid: e9f5d037a51e4fa4093b0db7a315d6c8,
+    type: 3}
+  networkPlayerPrefab: {fileID: 8837042551830750975, guid: df47d2fd9cd52ee4fb7ce25dd4590b10,
     type: 3}
 --- !u!114 &1216754987
 MonoBehaviour:
@@ -415,7 +417,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1782326262
 BoxCollider:

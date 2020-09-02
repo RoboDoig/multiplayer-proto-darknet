@@ -14,7 +14,9 @@ public class SpawnManager : MonoBehaviour
     NetworkPlayerManager networkPlayerManager;
 
     [SerializeField]
-    GameObject playerPrefab;
+    GameObject localPlayerPrefab;
+    [SerializeField]
+    GameObject networkPlayerPrefab;
 
     void Awake() {
         if (client == null) {
@@ -48,7 +50,15 @@ public class SpawnManager : MonoBehaviour
                 Vector3 position = new Vector3(reader.ReadSingle(), 1f, reader.ReadSingle());
 
                 GameObject obj;
-                obj = Instantiate(playerPrefab, position, Quaternion.identity) as GameObject;
+                // if the message refers to us as a local player, instantiant controllable local player
+                if (id == client.ID) {
+                    obj = Instantiate(localPlayerPrefab, position, Quaternion.identity) as GameObject;
+                    obj.GetComponent<NetworkPlayer>().Client = client;
+                // else instantiant non-controllable network player
+                } else {
+                    obj = Instantiate(networkPlayerPrefab, position, Quaternion.identity) as GameObject;
+                }
+
 
                 networkPlayerManager.Add(id, obj.GetComponent<NetworkPlayer>());
             }
