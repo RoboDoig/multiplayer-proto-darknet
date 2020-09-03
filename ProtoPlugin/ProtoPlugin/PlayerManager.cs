@@ -79,7 +79,7 @@ namespace ProtoPlugin
                     e.Client.SendMessage(playerMessage, SendMode.Reliable);
             }
 
-            // The client should also check movement when it receives a message
+            // When this client sends a message, we should fire the movement handler
             e.Client.MessageReceived += MovementMessageReceived;
         }
 

@@ -18,6 +18,6 @@ public class PlayerControl : MonoBehaviour
             if (Physics.Raycast (ray, out hit)) {
                 navMeshAgent.SetDestination(hit.point);
             }
-        }
+        } 
     }
 }
