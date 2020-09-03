@@ -110,9 +110,20 @@ namespace ProtoPlugin
                         // what updated position did we receive?
                         float newX = reader.ReadSingle();
                         float newY = reader.ReadSingle();
+                        float rotX = reader.ReadSingle();
+                        float rotY = reader.ReadSingle();
+                        float rotZ = reader.ReadSingle();
+                        float rotW = reader.ReadSingle();
+
+                        // update specified player with this information
                         Player player = players[e.Client];
+
                         player.X = newX;
                         player.Y = newY;
+                        player.rotX = rotX;
+                        player.rotY = rotY;
+                        player.rotZ = rotZ;
+                        player.rotW = rotW;
 
                         // send this player's updated position back to all clients except the client that sent the message
                         using (DarkRiftWriter writer = DarkRiftWriter.Create())
@@ -120,6 +131,11 @@ namespace ProtoPlugin
                             writer.Write(player.ID);
                             writer.Write(player.X);
                             writer.Write(player.Y);
+                            writer.Write(player.rotX);
+                            writer.Write(player.rotY);
+                            writer.Write(player.rotZ);
+                            writer.Write(player.rotW);
+
                             message.Serialize(writer);
                         }
 

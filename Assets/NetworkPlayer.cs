@@ -10,4 +10,8 @@ public class NetworkPlayer : MonoBehaviour
     public void SetMovePosition(Vector3 position) {
         transform.position = position;
     }
+
+    public void SetRotation(Quaternion rotation) {
+        transform.rotation = rotation;
+    }
 }

@@ -11,6 +11,10 @@ namespace ProtoPlugin
         public ushort ID { get; set; }
         public float X { get; set; }
         public float Y { get; set; }
+        public float rotX { get; set; }
+        public float rotY { get; set; }
+        public float rotZ { get; set; }
+        public float rotW { get; set; }
 
         public Player(ushort id, float x, float y)
         {
