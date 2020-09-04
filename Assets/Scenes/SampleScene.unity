@@ -414,6 +414,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   client: {fileID: 1216754985}
+  objectPrefab: {fileID: 4578592252057534411, guid: 93855f495f0d149488f25c112da78f32,
+    type: 3}
 --- !u!1 &1782326261
 GameObject:
   m_ObjectHideFlags: 0
