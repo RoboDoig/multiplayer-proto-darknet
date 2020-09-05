@@ -21,17 +21,11 @@ public class Player : MonoBehaviour
 
     void Update() {
         if (Vector3.Distance(lastPosition, transform.position) > moveDistance) {
-            using (DarkRiftWriter writer = DarkRiftWriter.Create()) {
-                writer.Write(transform.position.x);
-                writer.Write(transform.position.z);
-                writer.Write(transform.rotation.x);
-                writer.Write(transform.rotation.y);
-                writer.Write(transform.rotation.z);
-                writer.Write(transform.rotation.w);
+            Message movMessage = Message.Create(Tags.MovePlayerTag,
+                new NetworkMessages.MovementMessage(transform.position, transform.rotation));
 
-                using (Message message = Message.Create(Tags.MovePlayerTag, writer))
-                    Client.SendMessage(message, SendMode.Unreliable);
-            }
+            Client.SendMessage(movMessage, SendMode.Unreliable);
+
             lastPosition = transform.position;
             lastRotation = transform.rotation;
         }
