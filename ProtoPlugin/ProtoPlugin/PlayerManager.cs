@@ -37,7 +37,6 @@ namespace ProtoPlugin
                     foreach (IClient client in ClientManager.GetAllClients().Where(x => x == e.Client))
                         client.SendMessage(newMessage, SendMode.Reliable);
                 }
-
             }
 
             // When client connects, generate new player data
