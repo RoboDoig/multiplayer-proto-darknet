@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     }
 
     void Update() {
-        if (Vector3.Distance(lastPosition, transform.position) > moveDistance) {
+        if (Vector3.Distance(lastPosition, transform.position) > moveDistance && Client != null) {
             Message movMessage = Message.Create(Tags.MovePlayerTag,
                 new NetworkMessages.MovementMessage(transform.position, transform.rotation));
 

@@ -6,9 +6,12 @@ using UnityEngine.AI;
 public class PlayerControl : MonoBehaviour
 {
     NavMeshAgent navMeshAgent;
+    Interactable interactTarget;
+    Player player;
 
     void Start() {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        player = GetComponent<Player>();
     }
 
     void Update() {
@@ -17,7 +20,17 @@ public class PlayerControl : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast (ray, out hit)) {
                 navMeshAgent.SetDestination(hit.point);
+                if (hit.transform.GetComponent<Interactable>()) {
+                    interactTarget = hit.transform.GetComponent<Interactable>();
+                }
             }
         } 
+
+        if (interactTarget != null) {
+            if (Vector3.Distance(transform.position, interactTarget.transform.position) < 3f) {
+                interactTarget.OnInteract(player);
+                interactTarget = null;
+            }
+        }
     }
 }

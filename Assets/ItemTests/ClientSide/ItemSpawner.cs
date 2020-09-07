@@ -9,8 +9,8 @@ public class ItemSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnItem("item.resource.wood", 2, new Vector3(0f, 0f, 0f));
-        SpawnItem("item.tool.hammer", 1, new Vector3(-5f, 0.5f, 5f));
+        // SpawnItem("item.resource.wood", 2, new Vector3(0f, 0f, 0f));
+        // SpawnItem("item.tool.hammer", 1, new Vector3(-5f, 0f, 5f));
     }
 
     void SpawnItem(string item, int amount, Vector3 placePosition) {
