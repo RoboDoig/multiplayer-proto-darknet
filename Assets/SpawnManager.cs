@@ -32,8 +32,7 @@ public class SpawnManager : MonoBehaviour
             if (message.Tag == Tags.TestMessageTag) {
                 using (DarkRiftReader reader = message.GetReader()) {
                 ushort id = reader.ReadUInt16();
-                Debug.Log(id);
-        }
+            }
             } else if (message.Tag == Tags.SpawnPlayerTag) {
                 SpawnPlayer(sender, e);
             } else if (message.Tag == Tags.DespawnPlayerTag) {

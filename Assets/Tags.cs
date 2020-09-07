@@ -9,4 +9,7 @@ public static class Tags
     public static readonly ushort DespawnPlayerTag = 2;
     public static readonly ushort MovePlayerTag = 3;
     public static readonly ushort PlaceObjectTag = 4;
+
+    public static readonly ushort SpawnItemTag = 5001;
+    public static readonly ushort ModifyItemTag = 5002;
 }
