@@ -21,9 +21,8 @@ namespace ProtoPlugin
             ClientManager.ClientConnected += ClientConnected;
             //ClientManager.ClientDisconnected += ClientDisconnected;
 
-            CreateItem("item.resources.wood", 1, 0, 0, 0);
-            Console.Write("Ahhhh");
-            CreateItem("item.resources.gold", 2, 0, 0, 0);
+            CreateItem("item.resource.wood", 1, 0, 0, 0);
+            CreateItem("item.resource.gold", 2, -5, 0, 5);
         }
 
         void ClientConnected(object sender, ClientConnectedEventArgs e)
@@ -33,7 +32,11 @@ namespace ProtoPlugin
             // Send all network items to client
             foreach (NetworkItem networkItem in itemDictionary.Values)
             {
-                Message itemMessage = Message.Create(Tags.SpawnItemTag, networkItem);
+                using (Message newMessage = Message.Create(Tags.SpawnItemTag, networkItem))
+                {
+                    foreach (IClient client in ClientManager.GetAllClients().Where(x => x == e.Client))
+                        client.SendMessage(newMessage, SendMode.Reliable);
+                }
             }
         }
 

@@ -11,7 +11,7 @@ public class ItemManager : MonoBehaviour
     public List<ItemDefinitionResource> resources;
 
     [Header("Tools")]
-    public List<ItemDefinition> tools;
+    public List<ItemDefinitionTool> tools;
 
     void Awake() {
         // Add all resources
