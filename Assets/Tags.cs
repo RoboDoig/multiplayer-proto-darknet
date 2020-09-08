@@ -10,6 +10,6 @@ public static class Tags
     public static readonly ushort MovePlayerTag = 3;
     public static readonly ushort PlaceObjectTag = 4;
 
-    public static readonly ushort SpawnItemTag = 5001;
-    public static readonly ushort ModifyItemTag = 5002;
+    public static readonly ushort SpawnItemContainerTag = 6001;
+    public static readonly ushort AddItemToContainerTag = 6002;
 }

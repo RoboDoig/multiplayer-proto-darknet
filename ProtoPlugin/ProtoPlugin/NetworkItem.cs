@@ -14,18 +14,12 @@ namespace ProtoPlugin
         public int networkID { get; private set; }
         string name;
         int amount;
-        float posX;
-        float posY;
-        float posZ;
 
-        public NetworkItem(string _name, int _amount, float _posX, float _posY, float _posZ)
+        public NetworkItem(string _name, int _amount)
         {
             networkID = nextNetworkID;
             name = _name;
             amount = _amount;
-            posX = _posX;
-            posY = _posY;
-            posZ = _posZ;
 
             nextNetworkID++;
         }
@@ -35,9 +29,6 @@ namespace ProtoPlugin
             networkID = e.Reader.ReadInt32();
             name = e.Reader.ReadString();
             amount = e.Reader.ReadInt32();
-            posX = e.Reader.ReadSingle();
-            posY = e.Reader.ReadSingle();
-            posZ = e.Reader.ReadSingle();
         }
 
         public void Serialize(SerializeEvent e)
@@ -45,9 +36,6 @@ namespace ProtoPlugin
             e.Writer.Write(networkID);
             e.Writer.Write(name);
             e.Writer.Write(amount);
-            e.Writer.Write(posX);
-            e.Writer.Write(posY);
-            e.Writer.Write(posZ);
         }
     }
 }

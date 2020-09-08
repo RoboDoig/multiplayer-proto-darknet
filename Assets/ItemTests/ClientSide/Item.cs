@@ -6,28 +6,15 @@ using DarkRift.Client.Unity;
 using DarkRift;
 
 [Serializable]
-public class Item: IDarkRiftSerializable
+public class Item
 {
     public ItemDefinition itemDefinition;
     public int amount;
+    public int networkID;
 
-    public Item (ItemDefinition _itemDefinition, int _amount) {
+    public Item (ItemDefinition _itemDefinition, int _amount, int _networkID) {
         itemDefinition = _itemDefinition;
         amount = _amount;
-    }
-
-    // Network code
-    public void OnItemChanged(UnityClient client) {
-
-    }
-
-    public void Serialize(SerializeEvent e)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Deserialize(DeserializeEvent e)
-    {
-        throw new NotImplementedException();
+        networkID = _networkID;
     }
 }

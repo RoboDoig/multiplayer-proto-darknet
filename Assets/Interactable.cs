@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
+    ItemContainer itemContainer;
+
+    void Awake() {
+        itemContainer = GetComponent<ItemContainer>();
+    }
+
     public virtual void OnInteract(Player player) {
-        GetComponent<ItemContainer>().TransferAllItems(player.GetComponent<ItemContainer>());
+        itemContainer.AddItem(new Item(ItemManager.allItems["item.resource.gold"], 1, -1));
     }
 }
