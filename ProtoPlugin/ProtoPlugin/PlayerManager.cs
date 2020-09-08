@@ -38,9 +38,7 @@ namespace ProtoPlugin
             // Write player data and tell other connected clients about this client player
             using (DarkRiftWriter newPlayerWriter = DarkRiftWriter.Create())
             {
-                newPlayerWriter.Write(newPlayer.ID);
-                newPlayerWriter.Write(newPlayer.X);
-                newPlayerWriter.Write(newPlayer.Y);
+                newPlayerWriter.Write(newPlayer);
 
                 using (Message newPlayerMessage = Message.Create(Tags.SpawnPlayerTag, newPlayerWriter))
                 {
@@ -53,18 +51,23 @@ namespace ProtoPlugin
             players.Add(e.Client, newPlayer);
 
             // Tell the client player about all connected players
-            using (DarkRiftWriter playerWriter = DarkRiftWriter.Create())
+            foreach(Player player in players.Values)
             {
-                foreach(Player player in players.Values)
-                {
-                    playerWriter.Write(player.ID);
-                    playerWriter.Write(player.X);
-                    playerWriter.Write(player.Y);
-                }
-
-                using (Message playerMessage = Message.Create(Tags.SpawnPlayerTag, playerWriter))
-                    e.Client.SendMessage(playerMessage, SendMode.Reliable);
+                Message playerMessage = Message.Create(Tags.SpawnPlayerTag, player);
+                e.Client.SendMessage(playerMessage, SendMode.Reliable);
             }
+
+            //using (DarkRiftWriter playerWriter = DarkRiftWriter.Create())
+            //{
+            //    foreach(Player player in players.Values)
+            //    {
+            //        playerWriter.Write(player);
+            //        Console.Write("Writing Player");
+            //    }
+
+            //    using (Message playerMessage = Message.Create(Tags.SpawnPlayerTag, playerWriter))
+            //        e.Client.SendMessage(playerMessage, SendMode.Reliable);
+            //}
 
             // When this client sends a message, we should fire the movement handler
             e.Client.MessageReceived += MovementMessageReceived;

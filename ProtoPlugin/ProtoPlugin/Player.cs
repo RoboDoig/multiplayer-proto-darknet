@@ -16,12 +16,21 @@ namespace ProtoPlugin
         public float rotY { get; set; }
         public float rotZ { get; set; }
         public float rotW { get; set; }
+        public NetworkItemContainer inventory;
 
         public Player(ushort id, float x, float y)
         {
-            this.ID = id;
-            this.X = x;
-            this.Y = y;
+            ID = id;
+            X = x;
+            Y = y;
+
+            rotX = 0f;
+            rotY = 0f;
+            rotZ = 0f;
+            rotW = 0f;
+
+            inventory = new NetworkItemContainer(0, 0, 0, 1);
+            inventory.AddItem(new NetworkItem("item.resource.gold", 10));
         }
 
         public void Deserialize(DeserializeEvent e)
@@ -44,6 +53,13 @@ namespace ProtoPlugin
             e.Writer.Write(rotY);
             e.Writer.Write(rotZ);
             e.Writer.Write(rotW);
+
+            e.Writer.Write(inventory.networkID);
+            foreach (NetworkItem item in inventory.contents)
+            {
+                e.Writer.Write(item.name);
+                e.Writer.Write(item.amount);
+            }
         }
     }
 }

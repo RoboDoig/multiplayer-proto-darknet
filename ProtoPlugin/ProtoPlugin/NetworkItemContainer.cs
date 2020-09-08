@@ -12,11 +12,11 @@ namespace ProtoPlugin
         public static Dictionary<int, NetworkItemContainer> itemContainerDictionary = new Dictionary<int, NetworkItemContainer>();
         private static int nextNetworkID = 0;
         public int networkID { get; private set; }
-        List<NetworkItem> contents;
+        public List<NetworkItem> contents { get; private set; }
         float posX;
         float posY;
         float posZ;
-        ushort type; // 0 = free item, 1 = player inventory, 2 = structure inventory
+        public ushort type; // 0 = free item, 1 = player inventory, 2 = structure inventory
 
         public NetworkItemContainer(float _posX, float _posY, float _posZ, ushort _type)
         {

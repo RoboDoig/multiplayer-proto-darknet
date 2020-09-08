@@ -32,7 +32,7 @@ namespace ProtoPlugin
             e.Client.MessageReceived += ItemMessageReceived;
 
             // Send all network container items to client
-            foreach (NetworkItemContainer networkItemContainer in NetworkItemContainer.itemContainerDictionary.Values)
+            foreach (NetworkItemContainer networkItemContainer in NetworkItemContainer.itemContainerDictionary.Values.Where(x => x.type == 0))
             {
                 using (Message newMessage = Message.Create(Tags.SpawnItemContainerTag, networkItemContainer))
                 {
