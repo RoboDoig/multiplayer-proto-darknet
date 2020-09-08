@@ -32,14 +32,14 @@ public class ItemSpawnManager : MonoBehaviour
                 itemContainerDict.Add(itemContainer.networkID, itemContainer);
 
                 foreach (ItemMessage item in itemContainerMessage.itemList) {
-                    itemContainer.contents.Add(new Item(ItemManager.allItems[item.name], item.amount, item.networkID));
+                    itemContainer.contents.Add(new Item(ItemManager.allItems[item.name], item.amount));
                 }
             }
 
             // Server wants to add item to container
             if (message.Tag == Tags.AddItemToContainerTag) {
                 AddItemMessage addItemMessage = message.Deserialize<AddItemMessage>();
-                Item addItem = new Item(ItemManager.allItems[addItemMessage.itemName], addItemMessage.itemAmount, -1);
+                Item addItem = new Item(ItemManager.allItems[addItemMessage.itemName], addItemMessage.itemAmount);
                 itemContainerDict[addItemMessage.containerNetworkID].contents.Add(addItem);
             }
         }
@@ -50,8 +50,7 @@ public class ItemSpawnManager : MonoBehaviour
         public string name {get; private set;}
         public int amount {get; private set;}
 
-        public ItemMessage(int _networkID, string _name, int _amount) {
-            networkID = _networkID;
+        public ItemMessage(string _name, int _amount) {
             name = _name;
             amount = _amount;
         }
@@ -80,19 +79,20 @@ public class ItemSpawnManager : MonoBehaviour
         public int networkID {get; private set;}
         public Vector3 position {get; private set;}
         public List<ItemMessage> itemList {get; private set;}
+        public ushort type {get; private set;}
 
         public void Deserialize(DeserializeEvent e)
         {
             itemList = new List<ItemMessage>();
             networkID = e.Reader.ReadInt32();
             position = new Vector3(e.Reader.ReadSingle(), e.Reader.ReadSingle(), e.Reader.ReadSingle());
+            type = e.Reader.ReadUInt16();
 
             while (e.Reader.Position < e.Reader.Length) {
-                int id = e.Reader.ReadInt32();
                 string name = e.Reader.ReadString();
                 int amount = e.Reader.ReadInt32();
 
-                itemList.Add (new ItemMessage(id, name, amount));
+                itemList.Add (new ItemMessage(name, amount));
             }
         }
 

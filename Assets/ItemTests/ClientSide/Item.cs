@@ -10,11 +10,9 @@ public class Item
 {
     public ItemDefinition itemDefinition;
     public int amount;
-    public int networkID;
 
-    public Item (ItemDefinition _itemDefinition, int _amount, int _networkID) {
+    public Item (ItemDefinition _itemDefinition, int _amount) {
         itemDefinition = _itemDefinition;
         amount = _amount;
-        networkID = _networkID;
     }
 }

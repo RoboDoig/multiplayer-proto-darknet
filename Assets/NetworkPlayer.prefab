@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8837042551830750973}
   - component: {fileID: 8837042551830750972}
   - component: {fileID: 1953573151100625811}
+  - component: {fileID: 7936559197688725497}
   m_Layer: 0
   m_Name: NetworkPlayer
   m_TagString: Untagged
@@ -108,5 +109,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774a4d7977ab9bd4691d88c6d880ee8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDistance: 0.05
-  Client: {fileID: 0}
+--- !u!114 &7936559197688725497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8837042551830750975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19b0b6fc6c04354e8deeb4d1e0d9650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkID: -1
+  destroyOnEmpty: 0
+  contents: []
+  itemSpawnManager: {fileID: 0}
+  dropContainer: {fileID: 7557759939109673672, guid: 4bb67064e8444134aa7cd744041e5b3a,
+    type: 3}

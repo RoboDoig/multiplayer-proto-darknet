@@ -11,6 +11,6 @@ public class Interactable : MonoBehaviour
     }
 
     public virtual void OnInteract(Player player) {
-        itemContainer.AddItem(new Item(ItemManager.allItems["item.resource.gold"], 1, -1));
+        itemContainer.AddItem(new Item(ItemManager.allItems["item.resource.gold"], 1));
     }
 }

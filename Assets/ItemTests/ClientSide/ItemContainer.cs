@@ -13,4 +13,9 @@ public class ItemContainer : MonoBehaviour
     public void AddItem(Item item) {
         itemSpawnManager.RequestAddItem(item, this);
     }
+
+    // Ask the item spawn manager to remove an item from this container
+
+    // Ask the item spawn manager to transfer an item from this container into another
+
 }

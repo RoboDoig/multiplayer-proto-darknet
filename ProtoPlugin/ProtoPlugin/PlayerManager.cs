@@ -27,18 +27,6 @@ namespace ProtoPlugin
 
         void ClientConnected(object sender, ClientConnectedEventArgs e)
         {
-            // When client connects, send its ID back to it
-            using (DarkRiftWriter newWriter = DarkRiftWriter.Create())
-            {
-                newWriter.Write(e.Client.ID);
-
-                using (Message newMessage = Message.Create(Tags.TestMessageTag, newWriter))
-                {
-                    foreach (IClient client in ClientManager.GetAllClients().Where(x => x == e.Client))
-                        client.SendMessage(newMessage, SendMode.Reliable);
-                }
-            }
-
             // When client connects, generate new player data
             Random r = new Random();
             Player newPlayer = new Player(

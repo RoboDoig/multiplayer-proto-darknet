@@ -29,11 +29,8 @@ public class SpawnManager : MonoBehaviour
 
     void MessageReceived(object sender, MessageReceivedEventArgs e) {
         using (Message message = e.GetMessage() as Message) {
-            if (message.Tag == Tags.TestMessageTag) {
-                using (DarkRiftReader reader = message.GetReader()) {
-                ushort id = reader.ReadUInt16();
-            }
-            } else if (message.Tag == Tags.SpawnPlayerTag) {
+            Debug.Log(message.Tag);
+            if (message.Tag == Tags.SpawnPlayerTag) {
                 SpawnPlayer(sender, e);
             } else if (message.Tag == Tags.DespawnPlayerTag) {
                 DespawnPlayer(sender, e);
