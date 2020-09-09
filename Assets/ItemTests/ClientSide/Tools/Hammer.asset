@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hammer
   m_EditorClassIdentifier: 
   nameID: item.tool.hammer
-  icon: {fileID: 0}
+  icon: {fileID: 338561766869642129, guid: d03ec86ddbe2f4c01b818b700bcbe937, type: 3}
   maxStack: 1
   value: 2
   weight: 2

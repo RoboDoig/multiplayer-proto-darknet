@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gold
   m_EditorClassIdentifier: 
   nameID: item.resource.gold
-  icon: {fileID: 0}
+  icon: {fileID: -5690979520692100696, guid: d03ec86ddbe2f4c01b818b700bcbe937, type: 3}
   maxStack: 100
   value: 1
   weight: 0.1
