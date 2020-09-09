@@ -6,16 +6,19 @@ using UnityEngine.AI;
 public class PlayerControl : MonoBehaviour
 {
     NavMeshAgent navMeshAgent;
-    InventoryPanel inventoryPanel;
+    Collider col;
+    WorldSpaceUI ui;
     Interactable interactTarget;
     Player player;
+    List<WorldSpaceUI> openUI = new List<WorldSpaceUI>();
     public delegate void UpdateAction();
     UpdateAction updateAction;
 
     void Start() {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        col = GetComponent<Collider>();
         player = GetComponent<Player>();
-        inventoryPanel = GetComponentInChildren<InventoryPanel>();
+        ui = GetComponentInChildren<WorldSpaceUI>();
         updateAction = DefaultControl;
     }
 
@@ -41,15 +44,38 @@ public class PlayerControl : MonoBehaviour
 
         // UI Control
         if (Input.GetKeyDown(KeyCode.I)) {
-            inventoryPanel.UpdateItems(GetComponent<Inventory>());
-            inventoryPanel.ToggleView();
+            navMeshAgent.SetDestination(transform.position);
+            ui.UpdateInventoryItems(GetComponent<Inventory>());
+
+            // Show players's inventory
+            ui.ToggleInventoryView();
+
+            // Show any nearby inventories
+            openUI.Clear();
+            Collider[] colliders = Physics.OverlapSphere(transform.position, 5f);
+            foreach(Collider colliderOther in colliders) {
+                if (colliderOther != col) {
+                    WorldSpaceUI objectUI = colliderOther.transform.GetComponentInChildren<WorldSpaceUI>();
+                    if (objectUI != null) {
+                        objectUI.ToggleInventoryView();
+                        objectUI.UpdateInventoryItems(colliderOther.transform.GetComponent<ItemContainer>());
+                        openUI.Add(objectUI);
+                    }
+                }
+            }
+
             updateAction = InventoryControl;
         }
     }
 
     void InventoryControl() {
         if (Input.GetKeyDown(KeyCode.I)) {          
-            inventoryPanel.ToggleView();
+            ui.ToggleInventoryView();
+
+            foreach (WorldSpaceUI objectUI in openUI) {
+                objectUI.ToggleInventoryView();
+            }
+
             updateAction = DefaultControl;
         }
     }
