@@ -12,6 +12,8 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField]
     NetworkPlayerManager networkPlayerManager;
+    [SerializeField]
+    ItemSpawnManager itemSpawnManager;
 
     [SerializeField]
     GameObject localPlayerPrefab;
@@ -59,7 +61,13 @@ public class SpawnManager : MonoBehaviour
                 inv.networkID = playerMessage.networkInventoryID;
             }
 
-            inv.contents.Add(playerMessage.networkInventoryContents[0]);
+            itemSpawnManager.itemContainerDict.Add(inv.networkID, inv);
+
+            foreach(Item item in playerMessage.networkInventoryContents) {
+                inv.contents.Add(item);
+            }
+
+            //inv.contents.Add(playerMessage.networkInventoryContents[0]); // TODO need to add all items
             networkPlayerManager.Add(playerMessage.ID, obj.GetComponent<NetworkPlayer>());       
         }
     }

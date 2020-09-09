@@ -13,7 +13,7 @@ public class ItemSpawnManager : MonoBehaviour
     [SerializeField]
     GameObject defaultContainer;
 
-    Dictionary<int, ItemContainer> itemContainerDict = new Dictionary<int, ItemContainer>();
+    public Dictionary<int, ItemContainer> itemContainerDict = new Dictionary<int, ItemContainer>();
 
     void Awake() {
         client.MessageReceived += MessageReceived;
@@ -50,6 +50,18 @@ public class ItemSpawnManager : MonoBehaviour
 
             // Server wants to delete item from container
             if (message.Tag == Tags.DeleteItemFromContainerTag) {
+                ItemContainerMessage itemContainerMessage = message.Deserialize<ItemContainerMessage>();
+
+                ItemContainer itemContainer = itemContainerDict[itemContainerMessage.networkID];
+                itemContainer.contents.Clear();
+
+                foreach (ItemMessage item in itemContainerMessage.itemList) {
+                    itemContainer.contents.Add(new Item(ItemManager.allItems[item.name], item.amount));
+                }
+            }
+
+            // Server wants to transfer items between containers
+            if (message.Tag == Tags.TransferItemBetweenContainersTag) {
                 ItemContainerMessage itemContainerMessage = message.Deserialize<ItemContainerMessage>();
 
                 ItemContainer itemContainer = itemContainerDict[itemContainerMessage.networkID];
@@ -119,6 +131,18 @@ public class ItemSpawnManager : MonoBehaviour
             writer.Write(item.amount);
 
             using (Message message = Message.Create(Tags.DeleteItemFromContainerTag, writer))
+                client.SendMessage(message, SendMode.Reliable);
+        }
+    }
+
+    public void RequestTransferItem(Item item, ItemContainer fromContainer, ItemContainer toContainer) {
+        using (DarkRiftWriter writer = DarkRiftWriter.Create()) {
+            writer.Write(fromContainer.networkID);
+            writer.Write(toContainer.networkID);
+            writer.Write(item.itemDefinition.nameID);
+            writer.Write(item.amount);
+
+            using (Message message = Message.Create(Tags.TransferItemBetweenContainersTag, writer))
                 client.SendMessage(message, SendMode.Reliable);
         }
     }

@@ -12,4 +12,5 @@ public static class Tags
         public static readonly ushort SpawnItemContainerTag = 6001;
         public static readonly ushort AddItemToContainerTag = 6002;
         public static readonly ushort DeleteItemFromContainerTag = 6003;
+        public static readonly ushort TransferItemBetweenContainersTag = 6004;
 }

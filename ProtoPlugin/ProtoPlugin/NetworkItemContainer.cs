@@ -31,6 +31,26 @@ namespace ProtoPlugin
             itemContainerDictionary.Add(networkID, this);
         }
 
+        // Check if container has amount of an item
+        public bool CheckHasItem(NetworkItem item)
+        {
+            foreach (NetworkItem contentsItem in contents)
+            {
+                if (contentsItem.name == item.name)
+                {
+                    if (contentsItem.amount >= item.amount)
+                    {
+                        return true;
+                    } else
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         public void AddItem(NetworkItem item)
         {
             foreach (NetworkItem contentsItem in contents)

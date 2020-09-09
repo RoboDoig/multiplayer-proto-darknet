@@ -436,6 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   client: {fileID: 1216754985}
   networkPlayerManager: {fileID: 1216754987}
+  itemSpawnManager: {fileID: 1216754988}
   localPlayerPrefab: {fileID: 8837042551830750975, guid: e9f5d037a51e4fa4093b0db7a315d6c8,
     type: 3}
   networkPlayerPrefab: {fileID: 8837042551830750975, guid: df47d2fd9cd52ee4fb7ce25dd4590b10,

@@ -78,7 +78,7 @@ namespace ProtoPlugin
 
                         NetworkItemContainer.itemContainerDictionary[networkID].DeleteItem(CreateItem(itemName, amount));
 
-                        using (Message newMessage = Message.Create(Tags.AddItemToContainerTag, NetworkItemContainer.itemContainerDictionary[networkID]))
+                        using (Message newMessage = Message.Create(Tags.DeleteItemFromContainerTag, NetworkItemContainer.itemContainerDictionary[networkID]))
                         {
                             foreach (IClient c in ClientManager.GetAllClients())
                                 c.SendMessage(newMessage, SendMode.Reliable);
@@ -86,7 +86,46 @@ namespace ProtoPlugin
                     }
                 }
 
-                // Client wants to do y
+                // Client wants to transfer item from one container to another
+                if (message.Tag == Tags.TransferItemBetweenContainersTag)
+                {
+                    using (DarkRiftReader reader = message.GetReader())
+                    {
+                        int fromContainerNetworkID = reader.ReadInt32();
+                        int toContainerNetworkID = reader.ReadInt32();
+                        string itemName = reader.ReadString();
+                        int amount = reader.ReadInt32();
+
+                        TransferItemBetweenContainers(CreateItem(itemName, amount), NetworkItemContainer.itemContainerDictionary[fromContainerNetworkID], NetworkItemContainer.itemContainerDictionary[toContainerNetworkID]);
+
+                        // Update the donor container
+                        using (Message newMessage = Message.Create(Tags.TransferItemBetweenContainersTag, NetworkItemContainer.itemContainerDictionary[fromContainerNetworkID]))
+                        {
+                            foreach (IClient c in ClientManager.GetAllClients())
+                                c.SendMessage(newMessage, SendMode.Reliable);
+                        }
+
+                        // Update the receiver container
+                        using (Message newMessage = Message.Create(Tags.TransferItemBetweenContainersTag, NetworkItemContainer.itemContainerDictionary[toContainerNetworkID]))
+                        {
+                            foreach (IClient c in ClientManager.GetAllClients())
+                                c.SendMessage(newMessage, SendMode.Reliable);
+                        }
+                    }
+                }
+            }
+        }
+
+        void TransferItemBetweenContainers(NetworkItem item, NetworkItemContainer fromContainer, NetworkItemContainer toContainer)
+        {
+            // Does from container have enough item?
+            if (fromContainer.CheckHasItem(item))
+            {
+                // Then remove item from donor container
+                fromContainer.DeleteItem(item);
+
+                // And add to receiver container
+                toContainer.AddItem(item);
             }
         }
 
