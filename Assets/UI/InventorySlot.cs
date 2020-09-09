@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -16,6 +17,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         distanceOnDragStart = Vector3.Distance(Camera.main.transform.position, transform.position);
         startPosition = transform.position;
         startRotation = transform.rotation;
+        parentInventoryPanel.GetComponent<Image>().raycastTarget = false;
     }
 
     public void OnDrag(PointerEventData eventData) {
@@ -29,5 +31,6 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnEndDrag(PointerEventData eventData) {
         transform.position = startPosition;
         transform.rotation = startRotation;
+        parentInventoryPanel.GetComponent<Image>().raycastTarget = true;
     }
 }

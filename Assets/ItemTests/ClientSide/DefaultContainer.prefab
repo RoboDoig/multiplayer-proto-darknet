@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8725d63737cd2d049b78084494796688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemContainer: {fileID: 1987627437022966901}
   inventoryPanel: {fileID: 8889871355961097656}
 --- !u!1 &7557759939109673672
 GameObject:
@@ -370,6 +371,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8554864973943590705, guid: 7524270a55590e948899b1131cadeef3,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 8554864973943590705, guid: 7524270a55590e948899b1131cadeef3,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 8554864973943590705, guid: 7524270a55590e948899b1131cadeef3,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 8554864973943590705, guid: 7524270a55590e948899b1131cadeef3,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.15686275
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7524270a55590e948899b1131cadeef3, type: 3}

@@ -5,6 +5,7 @@ using UnityEngine;
 public class WorldSpaceUI : MonoBehaviour
 {
     Camera viewCamera;
+    public ItemContainer itemContainer;
     public InventoryPanel inventoryPanel;
 
     void Awake() {
@@ -17,7 +18,7 @@ public class WorldSpaceUI : MonoBehaviour
         transform.Rotate(0, 180, 0);
     }
 
-    public void UpdateInventoryItems(ItemContainer itemContainer) {
+    public void UpdateInventoryItems() {
         inventoryPanel.UpdateItems(itemContainer);
     }
 

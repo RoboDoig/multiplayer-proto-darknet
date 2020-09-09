@@ -14,6 +14,6 @@ public class Interactable : MonoBehaviour
         //itemContainer.AddItem(new Item(ItemManager.allItems["item.resource.gold"], 1));
         //itemContainer.DeleteItem(new Item(ItemManager.allItems["item.resource.gold"], 1));
         //itemContainer.TransferItem(new Item(ItemManager.allItems["item.resource.gold"], 1), player.GetComponent<Inventory>());
-        player.GetComponent<Inventory>().TransferItem(new Item(ItemManager.allItems["item.resource.gold"], 1), itemContainer);
+        //player.GetComponent<Inventory>().TransferItem(new Item(ItemManager.allItems["item.resource.gold"], 1), itemContainer);
     }
 }

@@ -19,16 +19,18 @@ public class InventoryPanel : MonoBehaviour, IDropHandler
     }
 
     public void OnDrop(PointerEventData e) {
-
-
-        Debug.Log(e.pointerDrag.GetComponent<InventorySlot>().item.itemDefinition.nameID);
-        Debug.Log(e.pointerDrag.GetComponent<InventorySlot>().item.amount);
+        // Item we want to transfer
+        Item itemToTransfer = e.pointerDrag.GetComponent<InventorySlot>().item;
 
         // From Inventory
-        Debug.Log(e.pointerDrag.GetComponentInParent<ItemContainer>());
+        ItemContainer fromContainer = e.pointerDrag.GetComponentInParent<ItemContainer>();
 
         // To Inventory
-        Debug.Log(GetComponentsInParent<ItemContainer>());
+        ItemContainer toContainer = GetComponentInParent<ItemContainer>();
+
+        // Request Transfer
+        if (fromContainer != toContainer)
+            fromContainer.TransferItem(itemToTransfer, toContainer);
     }
 
     public void ClearItems() {
@@ -42,12 +44,14 @@ public class InventoryPanel : MonoBehaviour, IDropHandler
 
         GameObject obj;
         foreach (Item item in itemContainer.contents) {
-            obj = Instantiate(inventorySlot);
-            obj.transform.SetParent(transform, false);
+            if (item.amount > 0) {
+                obj = Instantiate(inventorySlot);
+                obj.transform.SetParent(transform, false);
 
-            obj.GetComponent<Image>().sprite = item.itemDefinition.icon;
-            obj.GetComponent<InventorySlot>().parentInventoryPanel = this;
-            obj.GetComponent<InventorySlot>().item = item;
+                obj.GetComponent<Image>().sprite = item.itemDefinition.icon;
+                obj.GetComponent<InventorySlot>().parentInventoryPanel = this;
+                obj.GetComponent<InventorySlot>().item = item;
+            }
         }
     }
 }

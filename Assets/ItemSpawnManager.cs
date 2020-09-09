@@ -136,6 +136,7 @@ public class ItemSpawnManager : MonoBehaviour
     }
 
     public void RequestTransferItem(Item item, ItemContainer fromContainer, ItemContainer toContainer) {
+        Debug.Log("Request Sent");
         using (DarkRiftWriter writer = DarkRiftWriter.Create()) {
             writer.Write(fromContainer.networkID);
             writer.Write(toContainer.networkID);

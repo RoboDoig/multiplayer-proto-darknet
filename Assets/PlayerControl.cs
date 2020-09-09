@@ -45,7 +45,7 @@ public class PlayerControl : MonoBehaviour
         // UI Control
         if (Input.GetKeyDown(KeyCode.I)) {
             navMeshAgent.SetDestination(transform.position);
-            ui.UpdateInventoryItems(GetComponent<Inventory>());
+            ui.UpdateInventoryItems();
 
             // Show players's inventory
             ui.ToggleInventoryView();
@@ -58,7 +58,7 @@ public class PlayerControl : MonoBehaviour
                     WorldSpaceUI objectUI = colliderOther.transform.GetComponentInChildren<WorldSpaceUI>();
                     if (objectUI != null) {
                         objectUI.ToggleInventoryView();
-                        objectUI.UpdateInventoryItems(colliderOther.transform.GetComponent<ItemContainer>());
+                        objectUI.UpdateInventoryItems();
                         openUI.Add(objectUI);
                     }
                 }
