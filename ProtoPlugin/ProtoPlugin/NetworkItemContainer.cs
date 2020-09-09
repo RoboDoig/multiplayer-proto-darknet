@@ -33,7 +33,31 @@ namespace ProtoPlugin
 
         public void AddItem(NetworkItem item)
         {
+            foreach (NetworkItem contentsItem in contents)
+            {
+                if (contentsItem.name == item.name)
+                {
+                    contentsItem.amount += item.amount;
+                    return;
+                }
+            }
+
             contents.Add(item);
+        }
+
+        public void DeleteItem(NetworkItem item)
+        {
+            foreach (NetworkItem contentsItem in contents)
+            {
+                if (contentsItem.name == item.name)
+                {
+                    if (contentsItem.amount - item.amount >= 0)
+                    {
+                        contentsItem.amount -= item.amount;
+                        return;
+                    }
+                }
+            }
         }
 
         public void Deserialize(DeserializeEvent e)

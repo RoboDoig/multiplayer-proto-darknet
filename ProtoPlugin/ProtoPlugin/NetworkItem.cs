@@ -10,7 +10,7 @@ namespace ProtoPlugin
     class NetworkItem : IDarkRiftSerializable
     {
         public string name { get; private set; }
-        public int amount { get; private set; }
+        public int amount;
 
         public NetworkItem(string _name, int _amount)
         {

@@ -38,9 +38,26 @@ public class ItemSpawnManager : MonoBehaviour
 
             // Server wants to add item to container
             if (message.Tag == Tags.AddItemToContainerTag) {
-                AddItemMessage addItemMessage = message.Deserialize<AddItemMessage>();
-                Item addItem = new Item(ItemManager.allItems[addItemMessage.itemName], addItemMessage.itemAmount);
-                itemContainerDict[addItemMessage.containerNetworkID].contents.Add(addItem);
+                ItemContainerMessage itemContainerMessage = message.Deserialize<ItemContainerMessage>();
+
+                ItemContainer itemContainer = itemContainerDict[itemContainerMessage.networkID];
+                itemContainer.contents.Clear();
+
+                foreach (ItemMessage item in itemContainerMessage.itemList) {
+                    itemContainer.contents.Add(new Item(ItemManager.allItems[item.name], item.amount));
+                }
+            }
+
+            // Server wants to delete item from container
+            if (message.Tag == Tags.DeleteItemFromContainerTag) {
+                ItemContainerMessage itemContainerMessage = message.Deserialize<ItemContainerMessage>();
+
+                ItemContainer itemContainer = itemContainerDict[itemContainerMessage.networkID];
+                itemContainer.contents.Clear();
+
+                foreach (ItemMessage item in itemContainerMessage.itemList) {
+                    itemContainer.contents.Add(new Item(ItemManager.allItems[item.name], item.amount));
+                }
             }
         }
     }
@@ -53,24 +70,6 @@ public class ItemSpawnManager : MonoBehaviour
         public ItemMessage(string _name, int _amount) {
             name = _name;
             amount = _amount;
-        }
-    }
-
-    class AddItemMessage : IDarkRiftSerializable {
-        public int containerNetworkID {get; private set;}
-        public string itemName {get; private set;}
-        public int itemAmount {get; private set;}
-
-        public void Deserialize(DeserializeEvent e)
-        {
-            containerNetworkID = e.Reader.ReadInt32();
-            itemName = e.Reader.ReadString();
-            itemAmount = e.Reader.ReadInt32();
-        }
-
-        public void Serialize(SerializeEvent e)
-        {
-            throw new System.NotImplementedException();
         }
     }
 
@@ -109,6 +108,17 @@ public class ItemSpawnManager : MonoBehaviour
             writer.Write(item.amount);
 
             using (Message message = Message.Create(Tags.AddItemToContainerTag, writer))
+                client.SendMessage(message, SendMode.Reliable);
+        }
+    }
+
+    public void RequestDeleteItem(Item item, ItemContainer itemContainer) {
+        using (DarkRiftWriter writer = DarkRiftWriter.Create()) {
+            writer.Write(itemContainer.networkID);
+            writer.Write(item.itemDefinition.nameID);
+            writer.Write(item.amount);
+
+            using (Message message = Message.Create(Tags.DeleteItemFromContainerTag, writer))
                 client.SendMessage(message, SendMode.Reliable);
         }
     }

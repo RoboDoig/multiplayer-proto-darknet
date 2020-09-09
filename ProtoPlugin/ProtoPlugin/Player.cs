@@ -31,6 +31,7 @@ namespace ProtoPlugin
 
             inventory = new NetworkItemContainer(0, 0, 0, 1);
             inventory.AddItem(new NetworkItem("item.resource.gold", 10));
+            inventory.AddItem(new NetworkItem("item.resource.wood", 5));
         }
 
         public void Deserialize(DeserializeEvent e)

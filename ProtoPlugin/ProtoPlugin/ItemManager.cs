@@ -59,21 +59,32 @@ namespace ProtoPlugin
 
                         NetworkItemContainer.itemContainerDictionary[networkID].AddItem(CreateItem(itemName, amount));
 
-                        using (DarkRiftWriter writer = DarkRiftWriter.Create())
+                        using (Message newMessage = Message.Create(Tags.AddItemToContainerTag, NetworkItemContainer.itemContainerDictionary[networkID]))
                         {
-                            writer.Write(networkID);
-                            writer.Write(itemName);
-                            writer.Write(amount);
-
-                            message.Serialize(writer);
+                            foreach (IClient c in ClientManager.GetAllClients())
+                                c.SendMessage(newMessage, SendMode.Reliable);
                         }
-
-                        foreach (IClient c in ClientManager.GetAllClients())
-                            c.SendMessage(message, SendMode.Reliable);
                     }
                 }
 
-                // Client wants to do x
+                // Client wants to delete item from container
+                if (message.Tag == Tags.DeleteItemFromContainerTag)
+                {
+                    using (DarkRiftReader reader = message.GetReader())
+                    {
+                        int networkID = reader.ReadInt32();
+                        string itemName = reader.ReadString();
+                        int amount = reader.ReadInt32();
+
+                        NetworkItemContainer.itemContainerDictionary[networkID].DeleteItem(CreateItem(itemName, amount));
+
+                        using (Message newMessage = Message.Create(Tags.AddItemToContainerTag, NetworkItemContainer.itemContainerDictionary[networkID]))
+                        {
+                            foreach (IClient c in ClientManager.GetAllClients())
+                                c.SendMessage(newMessage, SendMode.Reliable);
+                        }
+                    }
+                }
 
                 // Client wants to do y
             }
