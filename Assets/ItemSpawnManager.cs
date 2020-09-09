@@ -70,6 +70,9 @@ public class ItemSpawnManager : MonoBehaviour
                 foreach (ItemMessage item in itemContainerMessage.itemList) {
                     itemContainer.contents.Add(new Item(ItemManager.allItems[item.name], item.amount));
                 }
+
+                // TODO - this is horrible, should be dealt with by an event?
+                itemContainer.GetComponentInChildren<InventoryPanel>().UpdateItems();
             }
         }
     }

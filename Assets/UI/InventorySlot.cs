@@ -18,6 +18,7 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         startPosition = transform.position;
         startRotation = transform.rotation;
         parentInventoryPanel.GetComponent<Image>().raycastTarget = false;
+        GetComponent<Image>().raycastTarget = false;
     }
 
     public void OnDrag(PointerEventData eventData) {
@@ -32,5 +33,6 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         transform.position = startPosition;
         transform.rotation = startRotation;
         parentInventoryPanel.GetComponent<Image>().raycastTarget = true;
+        GetComponent<Image>().raycastTarget = true;
     }
 }

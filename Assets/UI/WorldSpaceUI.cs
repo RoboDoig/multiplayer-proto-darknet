@@ -5,7 +5,6 @@ using UnityEngine;
 public class WorldSpaceUI : MonoBehaviour
 {
     Camera viewCamera;
-    public ItemContainer itemContainer;
     public InventoryPanel inventoryPanel;
 
     void Awake() {
@@ -19,7 +18,7 @@ public class WorldSpaceUI : MonoBehaviour
     }
 
     public void UpdateInventoryItems() {
-        inventoryPanel.UpdateItems(itemContainer);
+        inventoryPanel.UpdateItems();
     }
 
     public void ToggleInventoryView() {

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class InventoryPanel : MonoBehaviour, IDropHandler
 {
     bool isActive = false;
+    public ItemContainer itemContainer;
     public GameObject inventorySlot;
 
     void Start() {
@@ -19,6 +20,8 @@ public class InventoryPanel : MonoBehaviour, IDropHandler
     }
 
     public void OnDrop(PointerEventData e) {
+        Debug.Log(GetComponentInParent<ItemContainer>().gameObject);
+
         // Item we want to transfer
         Item itemToTransfer = e.pointerDrag.GetComponent<InventorySlot>().item;
 
@@ -39,7 +42,7 @@ public class InventoryPanel : MonoBehaviour, IDropHandler
         }
     }
 
-    public void UpdateItems(ItemContainer itemContainer) {
+    public void UpdateItems() {
         ClearItems();
 
         GameObject obj;
