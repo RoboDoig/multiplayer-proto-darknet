@@ -6,17 +6,20 @@ using UnityEngine.AI;
 public class PlayerControl : MonoBehaviour
 {
     NavMeshAgent navMeshAgent;
-    PlayerUIControl playerUIControl;
+    InventoryPanel inventoryPanel;
     Interactable interactTarget;
     Player player;
+    public delegate void UpdateAction();
+    UpdateAction updateAction;
 
     void Start() {
         navMeshAgent = GetComponent<NavMeshAgent>();
         player = GetComponent<Player>();
-        playerUIControl = GetComponentInChildren<PlayerUIControl>();
+        inventoryPanel = GetComponentInChildren<InventoryPanel>();
+        updateAction = DefaultControl;
     }
 
-    void Update() {
+    void DefaultControl() {
         // Movement control
         if (Input.GetMouseButtonDown(0)) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -38,7 +41,20 @@ public class PlayerControl : MonoBehaviour
 
         // UI Control
         if (Input.GetKeyDown(KeyCode.I)) {
-            playerUIControl.ToggleView();
+            inventoryPanel.UpdateItems(GetComponent<Inventory>());
+            inventoryPanel.ToggleView();
+            updateAction = InventoryControl;
         }
+    }
+
+    void InventoryControl() {
+        if (Input.GetKeyDown(KeyCode.I)) {          
+            inventoryPanel.ToggleView();
+            updateAction = DefaultControl;
+        }
+    }
+
+    void Update() {
+        updateAction();
     }
 }
