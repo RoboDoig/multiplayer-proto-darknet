@@ -21,5 +21,4 @@ public class ItemContainer : MonoBehaviour
     public void TransferItem(Item item, ItemContainer toContainer) {
         itemSpawnManager.RequestTransferItem(item, this, toContainer);
     }
-
 }
