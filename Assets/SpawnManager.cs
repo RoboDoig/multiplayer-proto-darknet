@@ -62,12 +62,12 @@ public class SpawnManager : MonoBehaviour
             }
 
             itemSpawnManager.itemContainerDict.Add(inv.networkID, inv);
+            inv.itemSpawnManager = itemSpawnManager;
 
             foreach(Item item in playerMessage.networkInventoryContents) {
                 inv.contents.Add(item);
             }
 
-            //inv.contents.Add(playerMessage.networkInventoryContents[0]); // TODO need to add all items
             networkPlayerManager.Add(playerMessage.ID, obj.GetComponent<NetworkPlayer>());       
         }
     }
